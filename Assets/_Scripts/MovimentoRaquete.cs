@@ -6,18 +6,44 @@ public class MovimentoRaquete : MonoBehaviour
 {
     [Range(1, 15)]
     public float velocidade = 5.0f;
+    GameManager gm;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        gm = GameManager.GetInstance();
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (gm.gameState != GameManager.GameState.GAME) return;
+
         float inputX = Input.GetAxis("Horizontal");
 
+
+
+
+        // Vector2 posicaoViewport = Camera.main.WorldToViewportPoint(transform.position);
+
+        // if (posicaoViewport.x < 0 || posicaoViewport.x > 0.9)
+        // {
+        //     transform.position -= new Vector3(inputX, 0, 0) * Time.deltaTime * velocidade;
+        // }
+        // else
+        // {
+        //     transform.position += new Vector3(inputX, 0, 0) * Time.deltaTime * velocidade;
+
+        // }
         transform.position += new Vector3(inputX, 0, 0) * Time.deltaTime * velocidade;
+
+
+
+        if (Input.GetKeyDown(KeyCode.Escape) && gm.gameState == GameManager.GameState.GAME)
+        {
+            gm.ChangeState(GameManager.GameState.PAUSE);
+        }
     }
 }

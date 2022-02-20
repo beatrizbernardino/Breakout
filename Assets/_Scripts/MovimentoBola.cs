@@ -8,6 +8,8 @@ public class MovimentoBola : MonoBehaviour
     public float velocidade = 5.0f;
 
     private Vector3 direcao;
+    GameManager gm;
+
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.CompareTag("Player"))
@@ -20,6 +22,8 @@ public class MovimentoBola : MonoBehaviour
         else if (col.gameObject.CompareTag("Tijolo"))
         {
             direcao = new Vector3(direcao.x, -direcao.y);
+            gm.pontos++;
+
         }
     }
 
@@ -31,11 +35,14 @@ public class MovimentoBola : MonoBehaviour
         float dirY = Random.Range(1.0f, 5.0f);
 
         direcao = new Vector3(dirX, dirY).normalized;
+        gm = GameManager.GetInstance();
     }
     // ... Por fim, utilizamos essa direção no método Update().
 
     void Update()
     {
+
+        if (gm.gameState != GameManager.GameState.GAME) return;
         transform.position += direcao * Time.deltaTime * velocidade;
         Vector2 posicaoViewport = Camera.main.WorldToViewportPoint(transform.position);
 
@@ -47,6 +54,30 @@ public class MovimentoBola : MonoBehaviour
         {
             direcao = new Vector3(direcao.x, -direcao.y);
         }
+        if (posicaoViewport.y < 0)
+        {
+            Reset();
+        }
+
+        Debug.Log($"Vidas: {gm.vidas} \t | \t Pontos: {gm.pontos}");
 
     }
+
+    private void Reset()
+    {
+
+        if (gm.vidas <= 0 && gm.gameState == GameManager.GameState.GAME)
+        {
+            gm.ChangeState(GameManager.GameState.ENDGAME);
+        }
+        Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+        transform.position = playerPosition + new Vector3(0, 0.5f, 0);
+
+        float dirX = Random.Range(-5.0f, 5.0f);
+        float dirY = Random.Range(2.0f, 5.0f);
+
+        direcao = new Vector3(dirX, dirY).normalized;
+        gm.vidas--;
+    }
+
 }

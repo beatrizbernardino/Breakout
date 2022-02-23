@@ -7,8 +7,8 @@ public class UI_Vidas : MonoBehaviour
     GameManager gm;
     void Start()
     {
-        textComp = GetComponent<Text>();
         gm = GameManager.GetInstance();
+        textComp = GetComponent<Text>();
     }
 
     void Update()

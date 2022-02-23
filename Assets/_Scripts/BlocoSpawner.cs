@@ -31,6 +31,8 @@ public class BlocoSpawner : MonoBehaviour
                     Vector3 posicao = new Vector3(-9 + 1.55f * i, 4 - 0.55f * j);
 
                     Instantiate(Bloco, posicao, Quaternion.identity, transform);
+
+                    // inst.GetComponent<Renderer>().material.color = new Color(82, 183, 136, 1);
                 }
             }
         }

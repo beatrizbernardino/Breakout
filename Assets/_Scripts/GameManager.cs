@@ -10,6 +10,9 @@ public class GameManager
     public GameState gameState { get; private set; }
     public int vidas;
     public int pontos;
+    public int minute;
+    public float seconds;
+
 
     public delegate void ChangeStateDelegate();
     public static ChangeStateDelegate changeStateDelegate;
@@ -24,6 +27,8 @@ public class GameManager
     {
         vidas = 3;
         pontos = 0;
+        minute = 2;
+        seconds = 0;
     }
 
 
@@ -41,6 +46,8 @@ public class GameManager
     {
         vidas = 3;
         pontos = 0;
+        minute = 2;
+        seconds = 0;
         gameState = GameState.MENU;
     }
 }

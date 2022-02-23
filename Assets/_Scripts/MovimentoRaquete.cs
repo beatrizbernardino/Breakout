@@ -19,36 +19,39 @@ public class MovimentoRaquete : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gm.gameState != GameManager.GameState.GAME) return;
+        if (gm.gameState != GameManager.GameState.GAME)
+        {
+            return;
+        }
 
         float inputX = Input.GetAxis("Horizontal");
 
 
 
 
-        Vector2 posicaoViewport = Camera.main.WorldToViewportPoint(transform.position);
+        // Vector2 posicaoViewport = Camera.main.WorldToViewportPoint(transform.position);
 
         // if ((posicaoViewport.x < 0.08 || posicaoViewport.x > 0.9) && )
         // {
         //     transform.position = transform.position;
         // }
 
-        if (posicaoViewport.x < 0.06 && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)))
-        {
-            Debug.Log("Space key was pressed.");
-            transform.position = transform.position;
-        }
-        else if (posicaoViewport.x > 0.94 && (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)))
-        {
+        // if (posicaoViewport.x < 0.06 && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)))
+        // {
 
-            transform.position = transform.position;
-        }
-        else
-        {
-            transform.position += new Vector3(inputX, 0, 0) * Time.deltaTime * velocidade;
+        //     transform.position = transform.position;
+        // }
+        // else if (posicaoViewport.x > 0.94 && (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)))
+        // {
 
-        }
-        // transform.position += new Vector3(inputX, 0, 0) * Time.deltaTime * velocidade;
+        //     transform.position = transform.position;
+        // }
+        // else
+        // {
+        //     transform.position += new Vector3(inputX, 0, 0) * Time.deltaTime * velocidade;
+
+        // }
+        transform.position += new Vector3(inputX, 0, 0) * Time.deltaTime * velocidade;
 
 
 

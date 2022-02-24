@@ -7,9 +7,14 @@ using UnityEngine.AI;
 public class MovimentoBola : MonoBehaviour
 {
     [Range(1, 15)]
-    public float velocidade = 5.0f;
+    private float velocidade = 5.0f;
     public bool inicio = true;
     private Vector3 direcao;
+
+    public float width = 1.5f;
+    public float height = 1.5f;
+    public float z = 1.5f;
+
 
     public Vector3 offset;
     private Transform raquete_player;
@@ -58,8 +63,8 @@ public class MovimentoBola : MonoBehaviour
         if (inicio)
         {
 
-            offset = raquete_player.transform.position - transform.position;
-            transform.position = transform.position + offset;
+            //offset = raquete_player.transform.position - transform.position;
+            transform.position = raquete_player.transform.position + offset;
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -77,6 +82,33 @@ public class MovimentoBola : MonoBehaviour
         {
 
             if (gm.gameState != GameManager.GameState.GAME) return;
+
+
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                if (height == 1.5f)
+                {
+                    height = 2.5f;
+                    width = 2.5f;
+                    z = 2.5f;
+                    GetComponent<CircleCollider2D>().radius = 0.5f;
+
+
+
+                }
+                else
+                {
+                    height = 1.5f;
+                    width = 1.5f;
+                    z = 1.5f;
+                    GetComponent<CircleCollider2D>().radius = 0.2f;
+
+
+                }
+                Vector3 scale = new Vector3(width, height, z);
+                transform.localScale = scale;
+
+            }
             transform.position += direcao * Time.deltaTime * velocidade;
             Vector2 posicaoViewport = Camera.main.WorldToViewportPoint(transform.position);
 

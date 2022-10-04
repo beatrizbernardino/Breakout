@@ -1,4 +1,4 @@
-# Breakout
+# Breakout Game 
 
 ### Link: https://beatrizrb.itch.io/breakout
 
